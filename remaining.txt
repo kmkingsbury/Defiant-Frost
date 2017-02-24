@@ -1,0 +1,29 @@
+Adams,44.3203° N, 71.2909° W
+Bond, 44.1528° N, 71.5312° W
+Bondcliff, 44.14080°N,  71.5409°W
+Bond West Peak, 44.15473°N / 71.54351°W
+Cabot, 44.5062° N, 71.4156° W
+Carrigain, 44.0945° N, 71.4474° W
+Galehead, 44.1853° N, 71.5737° W
+Garfield, 44.1870° N, 71.6109° W
+Hale, 44.2217° N, 71.5120° W
+Isolation, 44.2148° N, 71.3092° W
+Jackson, 44.2031° N, 71.3742° W
+Jefferson, 44.3045° N, 71.3176° W
+Lafayette, 44.1607° N, 71.6445° W
+Lincoln, 44.1490° N, 71.6445° W
+Madison, 44.3284° N, 71.2779° W
+Monroe, 44.2556° N, 71.3220° W
+Moriah, 44.3403° N, 71.1315° W
+Owls Head,44.1444° N, 71.6050° W
+Passaconaway, 43.9548° N, 71.3815° W
+Tripyramid, Middle, 43.964662° N, 71.440101° W
+Tripyramid, North,  43.96830° N,  71.44° W
+Twin, North, 44.2026° N, 71.5579° W
+Twin, South, 44.1876° N, 71.5548° W
+Washington, 44.2706° N, 71.3033° W
+Waumbek, 44.4328° N, 71.4170° W
+Whiteface, 43.9340° N, 71.4059° W
+Wildcat, 44.2590° N, 71.2015° W
+Wildcat "D" Peak, 44.2492° N, 71.2236° W
+Zealand, 44.1797° N, 71.5213° W
