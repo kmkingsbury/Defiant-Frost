@@ -10,9 +10,7 @@
 <title>Locations</title>
 
     <script src='http://code.jquery.com/jquery.min.js' type='text/javascript'></script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=<key>">
-    </script>
+
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false">
     </script>
     <script type="text/javascript">
@@ -44,7 +42,7 @@ var json = (function () {
     $.ajax({
         'async': false,
         'global': false,
-        'url': '/remaining.json',
+        'url': './remaining.json',
         'dataType': "json",
         'success': function (data) {
             json = data;
@@ -66,7 +64,7 @@ function setMarkers(map, locations) {
   // increase in the X direction to the right and in
   // the Y direction down.
   var image = {
-    url: 'mountains.png',
+    url: '/images/mountains.png',
     // This marker is 20 pixels wide by 32 pixels tall.
     size: new google.maps.Size(32, 32),
     // The origin for this image is 0,0.
@@ -91,21 +89,21 @@ function setMarkers(map, locations) {
     var mountains = locations[i];
     if (mountains.hasOwnProperty('map') && mountains.map == 1){
     var myLatLng = new google.maps.LatLng(mountains.lat, mountains.long);
-    var contentString = '<h3>'+mountains.title+'</h3>';
+    var contentString = '<h3>'+mountains.name+'</h3>';
     latlngbounds.extend(myLatLng);
 
 
     if (mountains.hasOwnProperty('image')){
-	contentString =contentString+'<div style="width:500px"><img src="'+mountains.image+'" style="max-width: 200px" width=200 height=185 hspace=4 align=left>';
+	    contentString =contentString+'<div style="width:250px"><img src="'+mountains.image+'" style="max-width: 200px" width=200 height=185 hspace=4 align=left>';
     }
-    contentString = contentString+'<table align=left><tr valign=top><td><b>Where:</b></td><td>'+mountains.where+'<br>';
+    contentString = contentString+'<table align=left><tr valign=top><td>'+mountains.lat+' '+mountains.long+'<br>';
     contentString += '<a href="https://maps.google.com?daddr='+mountains.lat+','+mountains.long+'" target="_blank">Get Directions to Here</a>'
     contentString += '</td></tr></table></div>';
 
     var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
-        icon: image,
+      //  icon: image,
         shape: shape,
         title: mountains.name,
         zIndex: parseInt(mountains.zindex, 10),
@@ -131,7 +129,7 @@ function setMarkers(map, locations) {
      <article class="post">
        <h1>Locations</h1>
        <p style="width:100%; align:center">For more infomation...</p>
-    	<div id="map-canvas" style="min-width:200px; min-height:400px">&nbsp;</div>
+    	<div id="map-canvas" style="min-width:200px; min-height:800px">&nbsp;</div>
         <div class="clearfloat"></div>
      </article>
 </div>
