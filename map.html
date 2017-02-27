@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Belgrano' rel='stylesheet' type='text/css'>
+<link href="styles.css" rel="stylesheet" type="text/css">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<title>Locations</title>
+
+    <script src='http://code.jquery.com/jquery.min.js' type='text/javascript'></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false">
+    </script>
+    <script type="text/javascript">
+var infowindow = null;
+    $(document).ready(function () { initialize();  });
+
+
+      function initialize() {
+        var mapOptions = {
+          center: { lat: 44.144221, lng: -71.366484},
+          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.HYBRID
+        };
+       var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+        setMarkers(map, json.mountains);
+       infowindow = new google.maps.InfoWindow({
+         maxWidth: 570,
+         content: "loading..."
+       });
+
+
+      }
+
+
+
+var json = (function () {
+    var json = null;
+    $.ajax({
+        'async': false,
+        'global': false,
+        'url': '/remaining.json',
+        'dataType': "json",
+        'success': function (data) {
+            json = data;
+        }
+    });
+    return json;
+})();
+
+
+
+function setMarkers(map, locations) {
+  // Add markers to the map
+
+  // Marker sizes are expressed as a Size of X,Y
+  // where the origin of the image (0,0) is located
+  // in the top left of the image.
+
+  // Origins, anchor positions and coordinates of the marker
+  // increase in the X direction to the right and in
+  // the Y direction down.
+  var image = {
+    url: 'mountains.png',
+    // This marker is 20 pixels wide by 32 pixels tall.
+    size: new google.maps.Size(32, 32),
+    // The origin for this image is 0,0.
+    origin: new google.maps.Point(0,0),
+    // The anchor for this image is the base of the flagpole at 0,32.
+    anchor: new google.maps.Point(16, 16)
+  };
+  // Shapes define the clickable region of the icon.
+  // The type defines an HTML &lt;area&gt; element 'poly' which
+  // traces out a polygon as a series of X,Y points. The final
+  // coordinate closes the poly by connecting to the first
+  // coordinate.
+  var shape = {
+      coords: [1, 1, 1, 32, 32, 32, 32, 1],
+      type: 'poly'
+  };
+
+  var latlngbounds = new google.maps.LatLngBounds();
+
+  for (var i = 0; i < locations.length; i++) {
+
+    var mountains = locations[i];
+    if (mountains.hasOwnProperty('map') && mountains.map == 1){
+    var myLatLng = new google.maps.LatLng(mountains.lat, mountains.long);
+    var contentString = '<h3>'+mountains.title+'</h3>';
+    latlngbounds.extend(myLatLng);
+
+
+    if (mountains.hasOwnProperty('image')){
+	contentString =contentString+'<div style="width:500px"><img src="'+mountains.image+'" style="max-width: 200px" width=200 height=185 hspace=4 align=left>';
+    }
+    contentString = contentString+'<table align=left><tr valign=top><td><b>Where:</b></td><td>'+mountains.where+'<br>';
+    contentString += '<a href="https://maps.google.com?daddr='+mountains.lat+','+mountains.long+'" target="_blank">Get Directions to Here</a>'
+    contentString += '</td></tr></table></div>';
+
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        icon: image,
+        shape: shape,
+        title: mountains.name,
+        zIndex: parseInt(mountains.zindex, 10),
+        html: contentString
+    });
+
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(this.html);
+      infowindow.open(map,this);
+    });
+    }
+  }
+  map.fitBounds(latlngbounds);
+
+}
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</head>
+<body>
+<div class="wrapper">
+
+     <article class="post">
+       <h1>Locations</h1>
+       <p style="width:100%; align:center">For more infomation...</p>
+    	<div id="map-canvas" style="min-width:200px; min-height:400px">&nbsp;</div>
+        <div class="clearfloat"></div>
+     </article>
+</div>
+<footer>
+	<p>
+        Copyright &copy; <span id="copydate"></span><script>var d = new Date(); var n = d.getFullYear(); document.getElementById("copydate").innerHTML = n;</script> All rights reserved. Designed by <a href="http://www.free-responsive-templates.com" title="free responsive templates">Free Responsive Templates</a>, Validation
+        <a class="footerLink" href="http://validator.w3.org/check/referer" title="This page validates as HTML5"><abbr title="HyperText Markup Language">HTML5</abbr></a> |
+        <a class="footerLink" href="http://jigsaw.w3.org/css-validator/check/referer" title="This page validates as CSS"><abbr title="Cascading Style Sheets">CSS3</abbr></a>
+    </p>
+</footer>
+</body>
+</html>
