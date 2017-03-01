@@ -42,7 +42,7 @@ var json = (function () {
     $.ajax({
         'async': false,
         'global': false,
-        'url': './remaining.json',
+        'url': './mountains.json',
         'dataType': "json",
         'success': function (data) {
             json = data;
@@ -96,6 +96,7 @@ function setMarkers(map, locations) {
     if (mountains.hasOwnProperty('image')){
 	    contentString =contentString+'<div style="width:250px"><img src="'+mountains.image+'" style="max-width: 200px" width=200 height=185 hspace=4 align=left>';
     }
+
     contentString = contentString+'<table align=left><tr valign=top><td>'+mountains.lat+' '+mountains.long+'<br>';
     contentString += '<a href="https://maps.google.com?daddr='+mountains.lat+','+mountains.long+'" target="_blank">Get Directions to Here</a>'
     contentString += '</td></tr></table></div>';
@@ -103,14 +104,17 @@ function setMarkers(map, locations) {
     var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
+
+
       //  icon: image,
         shape: shape,
         title: mountains.name,
         zIndex: parseInt(mountains.zindex, 10),
         html: contentString
     });
-
-
+    if  (mountains.hasOwnProperty('completed')){
+      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+    }
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.setContent(this.html);
       infowindow.open(map,this);
